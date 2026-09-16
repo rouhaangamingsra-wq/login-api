@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login App</title>
+</head>
+<body>
+  <h2>Signup</h2>
+  <input type="text" id="sEmail" placeholder="email">
+  <input type="password" id="sPass" placeholder="password">
+  <button onclick="signup()">Signup</button>
+  <p id="signupMsg"></p>
+
+  <h2>Login</h2>
+  <input type="text" id="lEmail" placeholder="email">
+  <input type="password" id="lPass" placeholder="password">
+  <button onclick="login()">Login</button>
+  <p id="loginMsg"></p>
+
+  <script>
+    function signup() {
+      var email = document.getElementById('sEmail').value;
+      var password = document.getElementById('sPass').value;
+      fetch('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) { document.getElementById('signupMsg').innerText = data.message; });
+    }
+
+    function login() {
+      var email = document.getElementById('lEmail').value;
+      var password = document.getElementById('lPass').value;
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) { document.getElementById('loginMsg').innerText = data.message; });
+    }
+  </script>
+</body>
+</html>
